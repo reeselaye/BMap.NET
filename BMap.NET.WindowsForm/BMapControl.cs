@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -23,6 +23,7 @@ namespace BMap.NET.WindowsForm
         private const double DISTANCE = 111319.49; //每（经纬）度距离m
 
         #region 属性
+        private List<BInjectedMarker> _injectedMarkers;
         private LatLngPoint _center = new LatLngPoint(117.217412, 39.142191);   //天津
         /// <summary>
         /// 地图显示中心经纬度坐标
@@ -267,6 +268,8 @@ namespace BMap.NET.WindowsForm
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
+
+            _injectedMarkers = new List<BInjectedMarker>();
         }
 
         #region 重写方法
@@ -302,7 +305,11 @@ namespace BMap.NET.WindowsForm
                 DrawCurrentCity(e.Graphics);
                 //工具栏
                 DrawToolsBar(e.Graphics);
+
+                foreach(BInjectedMarker marker in _injectedMarkers) {
+                    UpdateInjectedMarker(marker);
             }
+        }
         }
         /// <summary>
         /// 鼠标在地图上按下
@@ -1462,9 +1469,30 @@ namespace BMap.NET.WindowsForm
                 _theRouteEnd.Draw(g, _center, _zoom, ClientSize);
             }
         }
+        internal void UpdateInjectedMarker(BInjectedMarker marker) {
+            Point p = MapHelper.GetScreenLocationByLatLng(marker.Position, Center, Zoom, ClientSize);
+            Invoke(new MethodInvoker(() => {
+                marker.Location = p;
+            }));
+        }
+
         #endregion
 
         #region 公开方法
+        public void AddInjectedMarker(BInjectedMarker marker) {
+            Invoke(new MethodInvoker(() => {
+                _injectedMarkers.Add(marker);
+                Controls.Add(marker);
+                marker.MapControl = this;
+            }));
+        }
+
+        public void RemoveInjectedMarker(BInjectedMarker marker) {
+            Invoke(new MethodInvoker(() => {
+                _injectedMarkers.Remove(marker);
+                Controls.Remove(marker);
+            }));
+        }
         /// <summary>
         /// 向地图中增加POI
         /// </summary>

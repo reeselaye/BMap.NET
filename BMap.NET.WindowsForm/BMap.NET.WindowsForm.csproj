@@ -70,6 +70,12 @@
     <Compile Include="BDrivingStepItem.Designer.cs">
       <DependentUpon>BDrivingStepItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="BInjectedMarker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BInjectedMarker.Designer.cs">
+      <DependentUpon>BInjectedMarker.cs</DependentUpon>
+    </Compile>
     <Compile Include="BLoadMapModeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -241,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BDrivingStepItem.resx">
       <DependentUpon>BDrivingStepItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BInjectedMarker.resx">
+      <DependentUpon>BInjectedMarker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BLoadMapModeControl.resx">
       <DependentUpon>BLoadMapModeControl.cs</DependentUpon>
