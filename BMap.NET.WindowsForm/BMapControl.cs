@@ -38,6 +38,7 @@ namespace BMap.NET.WindowsForm
             set
             {
                 _center = value;
+                Locate(false);
             }
         }
         private int _zoom = 12;
