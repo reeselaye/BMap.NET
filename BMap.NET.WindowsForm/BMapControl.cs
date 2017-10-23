@@ -1023,8 +1023,12 @@ namespace BMap.NET.WindowsForm
         {
             if (!DesignMode)
             {
+                if(Center == null) {
                 //定位自己
                 Locate(true);
+                } else {
+                    Locate(false);
+                }
 
                 //初始化功能控件
                 //城市切换控件
