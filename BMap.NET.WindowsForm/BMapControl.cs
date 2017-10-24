@@ -1470,9 +1470,10 @@ namespace BMap.NET.WindowsForm
             }
         }
         internal void UpdateInjectedMarker(BInjectedMarker marker) {
-            Point p = MapHelper.GetScreenLocationByLatLng(marker.Position, Center, Zoom, ClientSize);
+            Point pCenter = MapHelper.GetScreenLocationByLatLng(marker.Position, Center, Zoom, ClientSize);
+            Point pLeftTop = new Point(pCenter.X - marker.Width/2, pCenter.Y - marker.Height/2);
             Invoke(new MethodInvoker(() => {
-                marker.Location = p;
+                marker.Location = pLeftTop;
             }));
         }
 
