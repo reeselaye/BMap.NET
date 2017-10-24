@@ -830,9 +830,8 @@ namespace BMap.NET.WindowsForm
                 int deltax = e.Location.X - _previous_point_cache.X;
                 int deltay = e.Location.Y - _previous_point_cache.Y;
                 LatLngPoint llp = MapHelper.GetLatLngByScreenLocation(new Point(ClientSize.Width/2 - deltax, ClientSize.Height/2 - deltay), _center, _zoom, ClientSize);
-                Center = llp;
                 _previous_point_cache = e.Location;
-                Locate(false);
+                Center = llp;
                 SyncControlsLocation();
             }
             else if (_mouse_type == MouseType.DragScreenshotArea)
@@ -952,10 +951,8 @@ namespace BMap.NET.WindowsForm
                 PointF pt_center = new PointF(pt.X + (ClientSize.Width/2 - e.Location.X), pt.Y + (e.Location.Y - ClientSize.Height / 2)); //缩放后中心点像素坐标
 
                 LatLngPoint p_center = MapHelper.GetLatLngByLocation(pt_center, z); //像素坐标到经纬度坐标
-                Center = p_center;
-
                 Zoom = z;
-                Locate(false);
+                Center = p_center;
                 SyncControlsLocation();
             }
         }
@@ -1027,8 +1024,6 @@ namespace BMap.NET.WindowsForm
                 if(Center == null) {
                 //定位自己
                 Locate(true);
-                } else {
-                    Locate(false);
                 }
 
                 //初始化功能控件
@@ -1551,9 +1546,8 @@ namespace BMap.NET.WindowsForm
             _bMarkerTipControl.Visible = false;
             if (_theRouteStart != null && _theRouteEnd != null) //定位到路线中心
             {
-                Center = new LatLngPoint((_theRouteEnd.Location.Lng + _theRouteStart.Location.Lng) / 2, (_theRouteStart.Location.Lat + _theRouteEnd.Location.Lat) / 2);
                 Zoom = 13;
-                Locate(false);
+                Center = new LatLngPoint((_theRouteEnd.Location.Lng + _theRouteStart.Location.Lng) / 2, (_theRouteStart.Location.Lat + _theRouteEnd.Location.Lat) / 2);
                 SyncControlsLocation();
             }
             Invalidate();
@@ -1572,9 +1566,8 @@ namespace BMap.NET.WindowsForm
                 if (enlarge) //放大定位
                 {
                     LatLngPoint lp = new LatLngPoint(double.Parse(points[0].Split(',')[0]), double.Parse(points[0].Split(',')[1]));
-                    Center = lp;
                     Zoom = 18;
-                    Locate(false);
+                    Center = lp;
                     SyncControlsLocation();
                 }
                 Invalidate();
@@ -1601,9 +1594,8 @@ namespace BMap.NET.WindowsForm
                     //显示在屏幕区域
                     if (!ClientRectangle.Contains(new Rectangle(_bPOITipControl.Left, _bPOITipControl.Top, _bPOITipControl.Width, _bPOITipControl.Height)))
                     {
-                        Center = p.Value.Location;
                         Zoom = 13;
-                        Locate(false);
+                        Center = p.Value.Location;
                         SyncControlsLocation();
                     }
                 }
@@ -1633,9 +1625,8 @@ namespace BMap.NET.WindowsForm
 
                 if (!ClientRectangle.Contains(new Rectangle(_bPointTipControl.Left, _bPointTipControl.Top, _bPointTipControl.Width, _bPointTipControl.Height)))
                 {
-                    Center = _theRouteEnd.Location;
                     Zoom = 15;
-                    Locate(false);
+                    Center = _theRouteEnd.Location;
                     SyncControlsLocation();
                 }
             }
@@ -1652,9 +1643,8 @@ namespace BMap.NET.WindowsForm
 
                 if (!ClientRectangle.Contains(new Rectangle(_bPointTipControl.Left, _bPointTipControl.Top, _bPointTipControl.Width, _bPointTipControl.Height)))
                 {
-                    Center = _theRouteStart.Location;
                     Zoom = 15;
-                    Locate(false);
+                    Center = _theRouteStart.Location;
                     SyncControlsLocation();
                 }
             }
@@ -1694,7 +1684,6 @@ namespace BMap.NET.WindowsForm
                 if (city_location != null && city_location["result"] != null)
                 {
                     Center = new LatLngPoint(double.Parse((string)city_location["result"]["location"]["lng"]), double.Parse((string)city_location["result"]["location"]["lat"]));
-                    Locate(false);
                 }
                 this.Invoke((Action)delegate()
                 {
@@ -1870,7 +1859,6 @@ namespace BMap.NET.WindowsForm
             {
                 LatLngPoint lp = MapHelper.GetLatLngByScreenLocation(PointToClient(Cursor.Position), _center, _zoom, ClientSize);
                 Center = lp;
-                Locate(false);
                 SyncControlsLocation();
             }
             else if (item.Name == "cmsLarge") //放大
