@@ -52,7 +52,7 @@ namespace BMap.NET.WindowsForm.DrawingObjects
         /// <param name="center"></param>
         /// <param name="zoom"></param>
         /// <param name="screen_size"></param>
-        public override void Draw(Graphics g, LatLngPoint center, int zoom, Size screen_size)
+        public void Draw(Graphics g, LatLngPoint center, int zoom, Size screen_size)
         {
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             using (SolidBrush sb = new SolidBrush(Color.FromArgb(100, Color.White)))

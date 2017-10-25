@@ -35,7 +35,7 @@ namespace BMap.NET.WindowsForm.DrawingObjects
         /// <param name="center">地图中心</param>
         /// <param name="zoom">地图缩放级别</param>
         /// <param name="screen_size">地图大小</param>
-        public override void Draw(System.Drawing.Graphics g, LatLngPoint center, int zoom, System.Drawing.Size screen_size)
+        public void Draw(System.Drawing.Graphics g, LatLngPoint center, int zoom, System.Drawing.Size screen_size)
         {
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             Point theScreenCenter = MapHelper.GetScreenLocationByLatLng(Center, center, zoom, screen_size);  //椭圆中心点的屏幕坐标

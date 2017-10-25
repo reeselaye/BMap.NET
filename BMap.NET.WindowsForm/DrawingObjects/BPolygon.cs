@@ -37,7 +37,7 @@ namespace BMap.NET.WindowsForm.DrawingObjects
         /// <param name="center">地图中心点</param>
         /// <param name="zoom">地图缩放级别</param>
         /// <param name="screen_size">地图大小</param>
-        public override void Draw(System.Drawing.Graphics g, LatLngPoint center, int zoom, System.Drawing.Size screen_size)
+        public void Draw(System.Drawing.Graphics g, LatLngPoint center, int zoom, System.Drawing.Size screen_size)
         {
             if (Points != null && Points.Count >= 2)
             {

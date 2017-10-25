@@ -34,7 +34,7 @@ namespace BMap.NET.WindowsForm.DrawingObjects
         /// <param name="center"></param>
         /// <param name="zoom"></param>
         /// <param name="screen_size"></param>
-        public override void Draw(System.Drawing.Graphics g, LatLngPoint center, int zoom, System.Drawing.Size screen_size)
+        public void Draw(System.Drawing.Graphics g, LatLngPoint center, int zoom, System.Drawing.Size screen_size)
         {
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             Point theScreenLeftTop = MapHelper.GetScreenLocationByLatLng(LeftTop, center, zoom, screen_size);  //矩形左上角屏幕坐标

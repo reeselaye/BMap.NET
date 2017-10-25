@@ -9,7 +9,7 @@ namespace BMap.NET.WindowsForm.DrawingObjects
     /// <summary>
     /// 地图中绘制图形基类
     /// </summary>
-    abstract class DrawingObject
+    interface DrawingObject
     {
         /// <summary>
         /// 绘制方法
@@ -18,6 +18,6 @@ namespace BMap.NET.WindowsForm.DrawingObjects
         /// <param name="center">地图中心点坐标</param>
         /// <param name="zoom">当前地图缩放级别</param>
         /// <param name="screen_size">屏幕大小</param>
-        public abstract void Draw(Graphics g, LatLngPoint center, int zoom, Size screen_size);
+        void Draw(Graphics g, LatLngPoint center, int zoom, Size screen_size);
     }
 }
