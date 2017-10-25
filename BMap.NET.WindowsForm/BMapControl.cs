@@ -306,10 +306,8 @@ namespace BMap.NET.WindowsForm
                 DrawCurrentCity(e.Graphics);
                 //工具栏
                 DrawToolsBar(e.Graphics);
-
-                foreach(BInjectedMarker marker in _injectedMarkers) {
-                    UpdateInjectedMarker(marker);
-            }
+                //注入标记
+                DrawInjectedMarkers(e.Graphics);
         }
         }
         /// <summary>
@@ -1261,6 +1259,28 @@ namespace BMap.NET.WindowsForm
                 }
             }
         }
+        private void DrawInjectedMarkers(Graphics g) {
+            foreach(BInjectedMarker marker in _injectedMarkers) {
+                Point pCenter = MapHelper.GetScreenLocationByLatLng(marker.Position, Center, Zoom, ClientSize);
+                Point pLeftTop = new Point(pCenter.X - marker.Width / 2, pCenter.Y - marker.Height / 2);
+                Invoke(new MethodInvoker(() => {
+                    marker.Location = pLeftTop;
+                }));
+
+                BInjectedMarker origin = marker.InjectedMarkerOrigin;
+                if (origin != null) {
+                    LatLngPoint me = marker.Position;
+                    LatLngPoint origin_ = origin.Position;
+                    LatLngPoint med = new LatLngPoint(me.Lng, origin_.Lat);
+                    Point pMe = MapHelper.GetScreenLocationByLatLng(me, Center, Zoom, ClientSize);
+                    Point pOrigin = MapHelper.GetScreenLocationByLatLng(origin_, Center, Zoom, ClientSize);
+                    Point pMed = MapHelper.GetScreenLocationByLatLng(med, Center, Zoom, ClientSize);
+                    g.DrawLine(new Pen(Color.Red), pMe, pOrigin);
+                    g.DrawLine(new Pen(Color.Yellow), pMe, pMed);
+                    g.DrawLine(new Pen(Color.Blue), pOrigin, pMed);
+                }
+            }
+        }
         /// <summary>
         /// 绘制左上角当前城市
         /// </summary>
@@ -1470,10 +1490,8 @@ namespace BMap.NET.WindowsForm
             }
         }
         internal void UpdateInjectedMarker(BInjectedMarker marker) {
-            Point pCenter = MapHelper.GetScreenLocationByLatLng(marker.Position, Center, Zoom, ClientSize);
-            Point pLeftTop = new Point(pCenter.X - marker.Width/2, pCenter.Y - marker.Height/2);
             Invoke(new MethodInvoker(() => {
-                marker.Location = pLeftTop;
+                Invalidate();
             }));
         }
 

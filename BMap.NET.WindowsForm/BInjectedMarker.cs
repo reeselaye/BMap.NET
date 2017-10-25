@@ -11,9 +11,19 @@ namespace BMap.NET.WindowsForm {
     public partial class BInjectedMarker : UserControl {
         private BMapControl _mapControl;
         private LatLngPoint _position = new LatLngPoint(0.0, 0.0);
+        private BInjectedMarker _origin;
         
         public BInjectedMarker() {
             InitializeComponent();
+        }
+
+        public BInjectedMarker InjectedMarkerOrigin {
+            set {
+                _origin = value;
+            }
+            get {
+                return _origin;
+            }
         }
 
         public BMapControl MapControl {
