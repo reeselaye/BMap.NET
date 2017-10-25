@@ -1504,6 +1504,7 @@ namespace BMap.NET.WindowsForm
                 _injectedMarkers.Add(marker);
                 Controls.Add(marker);
                 marker.MapControl = this;
+                Invalidate();
             }));
         }
 
@@ -1511,6 +1512,7 @@ namespace BMap.NET.WindowsForm
             Invoke(new MethodInvoker(() => {
                 _injectedMarkers.Remove(marker);
                 Controls.Remove(marker);
+                Invalidate();
             }));
         }
         /// <summary>
