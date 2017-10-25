@@ -210,6 +210,7 @@
     <Compile Include="DrawingObjects\BPolygon.cs" />
     <Compile Include="DrawingObjects\BRectangle.cs" />
     <Compile Include="DrawingObjects\BScreenShotRectangle.cs" />
+    <Compile Include="DrawingObjects\ColoredDrawingObject.cs" />
     <Compile Include="DrawingObjects\DrawingObject.cs" />
     <Compile Include="FunctionalControls\BTabControl.cs">
       <SubType>Component</SubType>

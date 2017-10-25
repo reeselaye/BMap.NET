@@ -9,15 +9,20 @@ namespace BMap.NET.WindowsForm.DrawingObjects
     /// <summary>
     /// 绘制直（折）线类
     /// </summary>
-    class BLine:DrawingObject
+    class BLine: ColoredDrawingObject
     {
+        private List<LatLngPoint> _points = new List<LatLngPoint>();
         /// <summary>
         /// 点集
         /// </summary>
         public List<LatLngPoint> Points
         {
-            get;
-            set;
+            get {
+                return _points;
+            }
+            set {
+                _points = value;
+            }
         }
         /// <summary>
         /// 更新最后一点
@@ -47,10 +52,8 @@ namespace BMap.NET.WindowsForm.DrawingObjects
                 {
                     l.Add(MapHelper.GetScreenLocationByLatLng(p, center, zoom, screen_size));  //屏幕坐标
                 }
-                using (Pen pen = new Pen(Color.FromArgb(150,Color.Blue), 4))
-                {
-                    for (int i = 0; i < l.Count - 1; ++i)
-                    {
+                using (Pen pen = new Pen(this.Color, this.LineWidth)) {
+                    for (int i = 0; i < l.Count - 1; ++i) {
                         g.DrawLine(pen, l[i], l[i + 1]);
                     }
                 }

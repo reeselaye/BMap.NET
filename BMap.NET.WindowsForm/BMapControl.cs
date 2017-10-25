@@ -1279,6 +1279,7 @@ namespace BMap.NET.WindowsForm
                     g.DrawLine(new Pen(Color.Yellow), pMe, pMed);
                     g.DrawLine(new Pen(Color.Blue), pOrigin, pMed);
                 }
+                ((DrawingObject)marker).Draw(g, Center, Zoom, ClientSize);
             }
         }
         /// <summary>
