@@ -26,7 +26,9 @@ namespace BMap.NET.HTTPService
                 WebClient client = new WebClient();
                 client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
                 client.Encoding = Encoding.UTF8;
-                return client.DownloadString(url);
+                string str = client.DownloadString(url);
+                client.Dispose();
+                return str;
             }
             catch
             {
@@ -44,7 +46,9 @@ namespace BMap.NET.HTTPService
             {
                 WebClient client = new WebClient();
                 client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                return client.DownloadData(url);
+                byte[] data = client.DownloadData(url);
+                client.Dispose();
+                return data;
             }
             catch
             {
