@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,6 +38,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _coordinate_url + "coords=" + source1 + "," + source2 + "&from=" + from + "&to=" + to + "&output=json&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -47,6 +50,9 @@ namespace BMap.NET.HTTPService
 
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _coordinate_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }
