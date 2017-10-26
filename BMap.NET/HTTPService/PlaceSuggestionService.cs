@@ -28,6 +28,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _suggestion_url + "?query=" + query + "&region=" + region + "&output=json&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -36,6 +39,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "query", query }, { "region", region }, { "output", "json" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _suggestion_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }

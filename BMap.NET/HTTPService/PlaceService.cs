@@ -31,6 +31,9 @@ namespace BMap.NET.HTTPService
                 {                    
                     string url = _search_url + "?query=" + query + "&region=" + region + "&output=json&page_size=20&scope=2&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -39,6 +42,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "query", query }, { "region", region }, { "output", "json" }, {"page_size","20"}, { "scope", "2" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _search_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }
@@ -61,6 +67,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _search_url + "?query=" + query + "&bounds=" + bounds + "&output=json&page_size=20&scope=2&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -69,6 +78,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "query", query }, { "bounds", bounds }, { "output", "json" }, {"page_size","20"}, { "scope", "2" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _search_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }
@@ -92,6 +104,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _search_url + "?query=" + query + "&location=" + location + "&radius=" + radius + "&output=json&page_size=20&scope=2&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -100,6 +115,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "query", query }, { "location",location }, {"radius",radius.ToString()}, { "output", "json" }, {"page_size","20"},{ "scope", "2" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _search_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }
@@ -121,6 +139,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _detail_url + "?uid=" + uid + "&output=json&scope=2&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -129,6 +150,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "uid", uid }, { "output", "json" }, { "scope", "2" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _detail_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }
@@ -153,6 +177,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _eventsearch_url + "?query=" + query + "&event=" + events + "&region=" + region + "&bounds=" + bounds + "&output=json&page_size=20&scope=2&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -161,6 +188,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "query", query }, { "event", events }, { "region", region }, { "bounds", bounds }, { "output", "json" }, {"page_size","20"}, { "scope", "2" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _eventsearch_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }
@@ -186,6 +216,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _eventsearch_url + "?query=" + query + "&event=" + events + "&region=" + region + "&location=" + location + "&radius=" + radius + "&output=json&page_size=20&scope=2&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -194,6 +227,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "query", query }, { "event", events }, { "region", region }, { "location", location }, {"radius",radius.ToString()}, { "output", "json" }, {"page_size","20"}, { "scope", "2" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _eventsearch_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }
@@ -215,6 +251,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _eventdetail_url + "?uid=" + uid + "&output=json&scope=2&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -223,6 +262,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "uid", uid }, { "output", "json" }, { "scope", "2" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _eventdetail_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }

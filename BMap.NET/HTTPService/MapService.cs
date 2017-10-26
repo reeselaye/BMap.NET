@@ -136,6 +136,9 @@ namespace BMap.NET.HTTPService
                     url = String.Format(_road_url, server_index) + "?qt=tile&x=" + x + "&y=" + y + "&z=" + zoom + "&styles=sl";
                 }
                 byte[] bytes = DownloadData(url);
+                if(bytes == null) {
+                    return null;
+                }
                 Bitmap bitmap = Image.FromStream(new MemoryStream(bytes)) as Bitmap;
                 SaveTile2Cache(zoom, x, y, map_mode, bitmap);
                 return bitmap;

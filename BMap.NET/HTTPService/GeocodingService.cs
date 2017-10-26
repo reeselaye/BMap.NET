@@ -27,6 +27,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _geocoding_url + "?address=" + address +  "&output=json&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -35,6 +38,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "address", address }, { "output", "json" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _geocoding_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }
@@ -56,6 +62,9 @@ namespace BMap.NET.HTTPService
                 {
                     string url = _geocoding_url + "?location=" + location + "&pois=1&output=json&ak=" + _ak;
                     string json = DownloadString(url);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
                 else  //SN校验
@@ -64,6 +73,9 @@ namespace BMap.NET.HTTPService
                     IDictionary<string, string> param = new Dictionary<string, string> { { "location", location }, { "pois", "1" }, { "output", "json" }, { "ak", _ak } };
                     string sn = AKSNCaculater.CaculateAKSN(_ak, _sk, _geocoding_url.Split(new string[] { ".com" }, StringSplitOptions.None)[1], param);  //计算sn
                     string json = DownloadString(url + "&sn=" + sn);
+                    if (json == null) {
+                        return null;
+                    }
                     return JsonConvert.DeserializeObject(json) as JObject;
                 }
             }
