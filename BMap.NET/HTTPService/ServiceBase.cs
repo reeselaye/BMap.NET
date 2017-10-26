@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +6,26 @@ using System.Net;
 
 namespace BMap.NET.HTTPService
 {
+    class WebClientWithTimeout : WebClient {
+        private int _timeout = 1000;
+        public int Timeout {
+            set {
+                _timeout = value;
+            }
+            get {
+                return _timeout;
+            }
+        }
+
+        protected override WebRequest GetWebRequest(Uri address) {
+            WebRequest request = base.GetWebRequest(address);
+            request.Timeout = Timeout;
+            if(request is HttpWebRequest) {
+                ((HttpWebRequest)request).ReadWriteTimeout = Timeout;
+            }
+            return request;
+        }
+    }
     /// <summary>
     /// 服务基类
     /// </summary>
@@ -23,8 +43,7 @@ namespace BMap.NET.HTTPService
         {
             try
             {
-                WebClient client = new WebClient();
-                client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                WebClient client = new WebClientWithTimeout();
                 client.Encoding = Encoding.UTF8;
                 string str = client.DownloadString(url);
                 client.Dispose();
@@ -44,7 +63,7 @@ namespace BMap.NET.HTTPService
         {
             try
             {
-                WebClient client = new WebClient();
+                WebClient client = new WebClientWithTimeout();
                 client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
                 byte[] data = client.DownloadData(url);
                 client.Dispose();
