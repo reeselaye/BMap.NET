@@ -77,6 +77,25 @@ namespace BMap.NET.WindowsForm {
         }
 
         public void Draw(Graphics g, LatLngPoint center, int zoom, Size screen_size) {
+            Point pCenter = MapHelper.GetScreenLocationByLatLng(Position, center, zoom, screen_size);
+            Point pLeftTop = new Point(pCenter.X - Width / 2, pCenter.Y - Height / 2);
+            Invoke(new MethodInvoker(() => {
+                Location = pLeftTop;
+            }));
+
+            BInjectedMarker origin = InjectedMarkerOrigin;
+            if (origin != null) {
+                LatLngPoint me = Position;
+                LatLngPoint origin_ = origin.Position;
+                LatLngPoint med = new LatLngPoint(me.Lng, origin_.Lat);
+                Point pMe = MapHelper.GetScreenLocationByLatLng(me, center, zoom, screen_size);
+                Point pOrigin = MapHelper.GetScreenLocationByLatLng(origin_, center, zoom, screen_size);
+                Point pMed = MapHelper.GetScreenLocationByLatLng(med, center, zoom, screen_size);
+                g.DrawLine(new Pen(Color.Red), pMe, pOrigin);
+                g.DrawLine(new Pen(Color.Yellow), pMe, pMed);
+                g.DrawLine(new Pen(Color.Blue), pOrigin, pMed);
+            }
+
             if (EnableRouteShow) {
                 _route.Draw(g, center, zoom, screen_size);
             }
