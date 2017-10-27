@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -33,6 +33,7 @@ namespace BMap.NET.WindowsForm {
         public Color RouteColor {
             set {
                 _routeShowColor = value;
+                _route.Color = value;
             }
         }
         
