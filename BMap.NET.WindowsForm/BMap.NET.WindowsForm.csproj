@@ -205,6 +205,7 @@
     <Compile Include="BWalkingStepItem.Designer.cs">
       <DependentUpon>BWalkingStepItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="CoordinateConverter.cs" />
     <Compile Include="DrawingObjects\BCircle.cs" />
     <Compile Include="DrawingObjects\BLine.cs" />
     <Compile Include="DrawingObjects\BPolygon.cs" />
