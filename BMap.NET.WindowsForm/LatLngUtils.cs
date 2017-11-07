@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace BMap.NET.WindowsForm {
     public enum RelativeDirection {
@@ -38,7 +39,7 @@ namespace BMap.NET.WindowsForm {
         }
 
         /// <summary>
-        /// 根据 GPS 坐标计算相对位置。（仅适用于东北半球）
+        /// 根据 WGS-84 坐标计算相对位置。（仅适用于东北半球）
         /// </summary>
         /// <param name="p"></param>
         /// <param name="pRef"></param>
@@ -62,6 +63,36 @@ namespace BMap.NET.WindowsForm {
             }
 
             return RelativeDirection.Invalid;
+        }
+
+        /// <summary>
+        /// 根据 WGS-84 坐标计算相对距离。（仅适用于东北半球）
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="pRef"></param>
+        /// <returns></returns>
+        public static PointF GetRelativeDistance(LatLngPoint p, LatLngPoint pRef) {
+            LatLngPoint pMed = new LatLngPoint(p.Lng, pRef.Lat);
+            float x = Convert.ToSingle(LatLngUtils.GetDistanceByLatLng(pRef, pMed));
+            float y = Convert.ToSingle(LatLngUtils.GetDistanceByLatLng(p, pMed));
+            RelativeDirection relativeDirection = LatLngUtils.GetRelativeDirection(p, pRef);
+            switch (relativeDirection) {
+                case RelativeDirection.NorthEast:
+                    break;
+                case RelativeDirection.NorthWest:
+                    x = -x;
+                    break;
+                case RelativeDirection.SouthWest:
+                    x = -x;
+                    y = -y;
+                    break;
+                case RelativeDirection.SouthEast:
+                    y = -y;
+                    break;
+                default:
+                    throw new ApplicationException("无法判断两点的相对距离");
+            }
+            return new PointF(x, y);
         }
     }
 }
