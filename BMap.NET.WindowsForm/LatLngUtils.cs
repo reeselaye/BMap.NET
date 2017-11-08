@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +18,10 @@ namespace BMap.NET.WindowsForm {
         public const double EARTH_RADIUS = 6378.137;//地球半径
         private static double rad(double d) {
             return d * Math.PI / 180.0;
+        }
+
+        private static double degree(double r) {
+            return r * 180.0 / Math.PI;
         }
 
         /// <summary>
@@ -89,10 +93,24 @@ namespace BMap.NET.WindowsForm {
                 case RelativeDirection.SouthEast:
                     y = -y;
                     break;
+                case RelativeDirection.Same:
+                    break;
                 default:
                     throw new ApplicationException("无法判断两点的相对距离");
             }
             return new PointF(x, y);
+        }
+
+        /// <summary>
+        /// 根据参考点 WGS-84 坐标和相对距离计算另一点 WGS-84 坐标。（仅适用于东北半球）
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static LatLngPoint GetLatLngByRelativeDistance(LatLngPoint origin, PointF distance) {
+            double radx = distance.X / EARTH_RADIUS;
+            double rady = distance.Y / EARTH_RADIUS;
+            return new LatLngPoint(origin.Lng + degree(radx), origin.Lat + degree(rady));
         }
     }
 }
