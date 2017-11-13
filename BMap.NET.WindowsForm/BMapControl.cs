@@ -130,6 +130,18 @@ namespace BMap.NET.WindowsForm
             get;
             set;
         }
+        public bool EnableMapInfo {
+            get;
+            set;
+        }
+        public bool EnableToolsBar {
+            get;
+            set;
+        }
+        public bool EnableCurrentCiry {
+            get;
+            set;
+        }
         #endregion
 
         #region 字段
@@ -301,14 +313,18 @@ namespace BMap.NET.WindowsForm
                 //地图元素
                 DrawMapElements(e.Graphics);
                 //地图信息
-                DrawMapInfo(e.Graphics);
+                if (EnableMapInfo) {
+                    DrawMapInfo(e.Graphics);
+                }
                 //当前城市
-                DrawCurrentCity(e.Graphics);
+                if (EnableCurrentCiry) {
+                    DrawCurrentCity(e.Graphics);
+                }
                 //工具栏
                 DrawToolsBar(e.Graphics);
                 //注入标记
                 DrawInjectedMarkers(e.Graphics);
-        }
+            }
         }
         /// <summary>
         /// 鼠标在地图上按下
@@ -1020,8 +1036,8 @@ namespace BMap.NET.WindowsForm
             if (!DesignMode)
             {
                 if(Center == null) {
-                //定位自己
-                Locate(true);
+                    //定位自己
+                    Locate(true);
                 }
 
                 //初始化功能控件
@@ -1264,7 +1280,8 @@ namespace BMap.NET.WindowsForm
         /// </summary>
         /// <param name="g"></param>
         private void DrawInjectedMarkers(Graphics g) {
-            foreach(DrawingObject marker in _injectedMarkers) {
+            for(int i = 0; i < _injectedMarkers.Count; i++) {
+                DrawingObject marker = _injectedMarkers[i];
                 marker.Draw(g, Center, Zoom, ClientSize);
             }
         }
