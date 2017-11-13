@@ -49,7 +49,7 @@ namespace BMap.NET.HTTPService
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        protected string DownloadString(string url)
+        public string DownloadString(string url)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace BMap.NET.HTTPService
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        protected byte[] DownloadData(string url)
+        public byte[] DownloadData(string url)
         {
             try
             {
