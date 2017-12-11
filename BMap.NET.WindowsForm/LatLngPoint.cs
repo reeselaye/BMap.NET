@@ -25,5 +25,9 @@ namespace BMap.NET.WindowsForm
             Lng = _lng;
             Lat = _lat;
         }
+
+        public override string ToString() {
+            return "(" + Lng.ToString() + ", " + Lat.ToString() + ")";
+        }
     }
 }
