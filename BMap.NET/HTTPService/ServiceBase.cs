@@ -37,6 +37,17 @@ namespace BMap.NET.HTTPService
 
         private WebClient wc;
 
+        private static int stopAfterExceptionCount = 10;
+        public static int MaxAllowedExceptionCount {
+            set {
+                stopAfterExceptionCount = value;
+            }
+        }
+        private static int exceptionCounter = 0;
+        public static void NoticeInternetConnected() {
+            exceptionCounter = 0;
+        }
+
         public ServiceBase() {
             wc = new WebClientWithTimeout();
             wc.Encoding = Encoding.UTF8;
@@ -51,6 +62,9 @@ namespace BMap.NET.HTTPService
         /// <returns></returns>
         public string DownloadString(string url)
         {
+            if (exceptionCounter > stopAfterExceptionCount) {
+                return null;
+            }
             try
             {
                 string str = wc.DownloadString(url);
@@ -58,6 +72,7 @@ namespace BMap.NET.HTTPService
             }
             catch
             {
+                exceptionCounter++;
                 return null;
             }
         }
@@ -68,6 +83,9 @@ namespace BMap.NET.HTTPService
         /// <returns></returns>
         public byte[] DownloadData(string url)
         {
+            if (exceptionCounter > stopAfterExceptionCount) {
+                return null;
+            }
             try
             {
                 byte[] data = wc.DownloadData(url);
@@ -75,6 +93,7 @@ namespace BMap.NET.HTTPService
             }
             catch
             {
+                exceptionCounter++;
                 return null;
             }
         }
