@@ -95,11 +95,7 @@ namespace BMap.NET.WindowsForm {
 
                 Font font = this.Font;
                 g.DrawLine(new Pen(Color.Red, 2), pMe, pOrigin);
-                g.DrawLine(new Pen(Color.Fuchsia, 2), pMe, pMed);
-                g.DrawLine(new Pen(Color.Fuchsia, 2), pOrigin, pMed);
-                g.DrawString((LatLngUtils.GetDistanceByLatLng(me, origin_) * 1000).ToString("0.0") + " m", font, new SolidBrush(Color.Red), new PointF((pMe.X+pOrigin.X)/2, (pMe.Y+pOrigin.Y)/2));
-                g.DrawString((LatLngUtils.GetDistanceByLatLng(me, med) * 1000).ToString("0.0") + " m", font, new SolidBrush(Color.Fuchsia), new PointF((pMe.X+pMed.X) / 2, (pMe.Y+pMed.Y) / 2));
-                g.DrawString((LatLngUtils.GetDistanceByLatLng(origin_, med) * 1000).ToString("0.0") + " m", font, new SolidBrush(Color.Fuchsia), new PointF((pOrigin.X+pMed.X) / 2, (pOrigin.Y+pMed.Y) / 2));
+                g.DrawString((LatLngUtils.GetDistanceByLatLng(me, origin_) * 1000).ToString("0.0") + "m", font, new SolidBrush(Color.Red), new PointF((pMe.X+pOrigin.X)/2, (pMe.Y+pOrigin.Y)/2));
             }
 
             if (EnableRouteShow) {
